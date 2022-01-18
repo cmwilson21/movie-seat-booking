@@ -4,7 +4,7 @@ const count = document.getElementById("count");
 const total = document.getElementById("total");
 const movieSelect = document.getElementById("movie");
 
-const ticketPrice = +movieSelect.value;
+let ticketPrice = +movieSelect.value;
 // adding the + signal above makes the value a number
 
 function updateSelectedCount() {
@@ -16,6 +16,7 @@ function updateSelectedCount() {
   total.innerText = selectedSeatsCount * ticketPrice;
 }
 
+// seat click event
 container.addEventListener("click", (e) => {
   if (
     e.target.classList.contains("seat") &&
@@ -24,4 +25,10 @@ container.addEventListener("click", (e) => {
     e.target.classList.toggle("selected");
     updateSelectedCount();
   }
+});
+
+// movie select event
+movieSelect.addEventListener("change", (e) => {
+  ticketPrice = +e.target.value;
+  updateSelectedCount();
 });
