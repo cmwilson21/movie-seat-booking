@@ -4,6 +4,8 @@ const count = document.getElementById("count");
 const total = document.getElementById("total");
 const movieSelect = document.getElementById("movie");
 
+populateUI();
+
 let ticketPrice = +movieSelect.value;
 // adding the + signal above makes the value a number
 
@@ -29,6 +31,19 @@ function updateSelectedCount() {
 
   count.innerText = selectedSeatsCount;
   total.innerText = selectedSeatsCount * ticketPrice;
+}
+
+// get data from local storage and populate the UI
+function populateUI() {
+  const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
+  // check to see if anything is in selectedSeats (local storage)
+  if (selectedSeats !== null && selectedSeats.length > 0) {
+    seats.forEach((seat, index) => {
+      if (selectedSeats.indexOf(index) > -1) {
+        seat.classList.add("selected");
+      }
+    });
+  }
 }
 
 // seat click event
