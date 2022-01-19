@@ -7,6 +7,12 @@ const movieSelect = document.getElementById("movie");
 let ticketPrice = +movieSelect.value;
 // adding the + signal above makes the value a number
 
+// save selected movie index and price
+function setMovieData(movieIndex, moviePrice) {
+  localStorage.setItem("selectedMovieIndex", movieIndex);
+  localStorage.setItem("selectedMoviePrice", moviePrice);
+}
+
 function updateSelectedCount() {
   const selectedSeats = document.querySelectorAll(".row .seat.selected");
 
@@ -16,6 +22,8 @@ function updateSelectedCount() {
   // use the spread operator to do this
 
   const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+
+  localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
 
   const selectedSeatsCount = selectedSeats.length;
 
@@ -37,5 +45,6 @@ container.addEventListener("click", (e) => {
 // movie select event
 movieSelect.addEventListener("change", (e) => {
   ticketPrice = +e.target.value;
+  setMovieData(e.target.selectedIndex, e.target.value);
   updateSelectedCount();
 });
